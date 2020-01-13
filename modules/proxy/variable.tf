@@ -10,34 +10,34 @@ variable "proxy_id" {
 }
 
 variable "proxy_name" {
-  description = "The proxy name used to launch a new proxy when 'proxy_id' is not specified."
+  description = "The proxy name used to launch a new proxy when `proxy_id` is not specified."
   default     = "tf-modules-proxy"
 }
 
 variable "proxy_access_region" {
-  description = "The proxy access region used to launch a new proxy when 'proxy_id' is not specified."
+  description = "The proxy access region used to launch a new proxy when `proxy_id` is not specified."
   default     = ""
 }
 
 variable "proxy_realserver_region" {
-  description = "The proxy realserver region used to launch a new proxy when 'proxy_id' is not specified."
+  description = "The proxy realserver region used to launch a new proxy when `proxy_id` is not specified."
   default     = ""
 }
 
 variable "proxy_bandwidth" {
-  description = "The proxy bandwidth used to launch a new proxy when 'proxy_id' is not specified."
+  description = "The proxy bandwidth used to launch a new proxy when `proxy_id` is not specified."
   type        = number
   default     = null
 }
 
 variable "proxy_concurrent" {
-  description = "The proxy concurrent used to launch a new proxy when 'proxy_id' is not specified."
+  description = "The proxy concurrent used to launch a new proxy when `proxy_id` is not specified."
   type        = number
   default     = null
 }
 
 variable "proxy_project_id" {
-  description = "The proxy project id used to launch a new proxy when 'proxy_id' is not specified."
+  description = "The proxy project id used to launch a new proxy when `proxy_id` is not specified."
   type        = number
   default     = 0
 }

@@ -16,40 +16,40 @@ variable "proxy_id" {
 }
 
 variable "proxy_name" {
-  description = "The proxy name used to launch a new proxy when 'proxy_id' is not specified."
+  description = "The proxy name used to launch a new proxy when `proxy_id` is not specified."
   default     = "tf-modules-proxy"
 }
 
 variable "proxy_access_region" {
-  description = "The proxy access region used to launch a new proxy when 'proxy_id' is not specified."
+  description = "The proxy access region used to launch a new proxy when `proxy_id` is not specified."
   default     = ""
 }
 
 variable "proxy_realserver_region" {
-  description = "The proxy realserver region used to launch a new proxy when 'proxy_id' is not specified."
+  description = "The proxy realserver region used to launch a new proxy when `proxy_id` is not specified."
   default     = ""
 }
 
 variable "proxy_bandwidth" {
-  description = "The proxy bandwidth used to launch a new proxy when 'proxy_id' is not specified."
+  description = "The proxy bandwidth used to launch a new proxy when `proxy_id` is not specified."
   type        = number
   default     = null
 }
 
 variable "proxy_concurrent" {
-  description = "The proxy concurrent used to launch a new proxy when 'proxy_id' is not specified."
+  description = "The proxy concurrent used to launch a new proxy when `proxy_id` is not specified."
   type        = number
   default     = null
 }
 
 variable "proxy_project_id" {
-  description = "The proxy project id used to launch a new proxy when 'proxy_id' is not specified."
+  description = "The proxy project id used to launch a new proxy when `proxy_id` is not specified."
   type        = number
   default     = 0
 }
 
 variable "proxy_enable" {
-  description = "Enable the proxy or not."
+  description = "Enable the proxy or not when `proxy_id` is not specified."
   default     = true
 }
 
@@ -59,12 +59,12 @@ variable "proxy_security_policy_id" {
 }
 
 variable "proxy_security_policy_enable" {
-  description = "Specify enable the GAAP proxy security policy or not."
+  description = "Specify enable the GAAP proxy security policy or not when `proxy_security_policy_id` is not specified."
   default     = true
 }
 
 variable "proxy_security_policy_action" {
-  description = "Specify action of the GAAP proxy security policy to launch resources, available values: `ACCEPT` and `DROP`."
+  description = "Specify action of the GAAP proxy security policy to launch resources when `proxy_security_policy_id` is not specified, available values: `ACCEPT` and `DROP`."
   default     = ""
 }
 
@@ -103,48 +103,50 @@ variable "layer4_listener_id" {
 }
 
 variable "layer4_listener_protocol" {
-  description = "The GAAP layer4 listener protocol used to launch a new layer4 listener when 'layer4_listener_id' is not specified, available values: `TCP` and `UDP`."
+  description = "The GAAP layer4 listener protocol used to launch a new layer4 listener when `layer4_listener_id` is not specified, available values: `TCP` and `UDP`."
   default     = ""
 }
 
 variable "layer4_listener_name" {
-  description = "The GAAP layer4 listener name used to launch a new layer4 listener when 'layer4_listener_id' is not specified."
+  description = "The GAAP layer4 listener name used to launch a new layer4 listener when `layer4_listener_id` is not specified."
   default     = ""
 }
 
 variable "layer4_listener_port" {
-  description = "The GAAP layer4 listener port used to launch a new layer4 listener when 'layer4_listener_id' is not specified."
+  description = "The GAAP layer4 listener port used to launch a new layer4 listener when `layer4_listener_id` is not specified."
   type        = number
   default     = null
 }
 
 variable "layer4_listener_type" {
-  description = "The GAAP layer4 listener type used to launch a new layer4 listener when 'layer4_listener_id' is not specified, available values: `TCP` and `UDP`."
+  description = "The GAAP layer4 listener type used to launch a new layer4 listener when `layer4_listener_id` is not specified, available values: `TCP` and `UDP`."
+  type        = string
   default     = null
 }
 
 variable "layer4_listener_realserver_type" {
-  description = "The GAAP layer4 listener realserver type used to launch a new layer4 listener when 'layer4_listener_id' is not specified, available values: `IP` and `DOMAIN`."
+  description = "The GAAP layer4 listener realserver type used to launch a new layer4 listener when `layer4_listener_id` is not specified, available values: `IP` and `DOMAIN`."
+  type        = string
   default     = null
 }
 
 variable "layer4_listener_connect_timeout" {
-  description = "The GAAP layer4 listener connect timeout used to launch a new layer4 listener when 'layer4_listener_id' is not specified."
+  description = "The GAAP layer4 listener connect timeout used to launch a new layer4 listener when `layer4_listener_id` is not specified."
   default     = 2
 }
 
 variable "layer4_listener_health_check" {
-  description = "Enable the GAAP layer4 listener health check or not used to launch a new layer4 listener when 'layer4_listener_id' is not specified."
+  description = "Enable the GAAP layer4 listener health check or not used to launch a new layer4 listener when `layer4_listener_id` is not specified."
   default     = false
 }
 
 variable "layer4_listener_health_check_interval" {
-  description = "The GAAP layer4 listener health check interval used to launch a new layer4 listener when 'layer4_listener_id' is not specified."
+  description = "The GAAP layer4 listener health check interval used to launch a new layer4 listener when `layer4_listener_id` is not specified."
   default     = 5
 }
 
 variable "layer4_listener_scheduler" {
-  description = "The GAAP layer4 listener scheduler used to launch a new layer4 listener when 'layer4_listener_id' is not specified, available values: `rr`, `wrr` and `lc`."
+  description = "The GAAP layer4 listener scheduler used to launch a new layer4 listener when `layer4_listener_id` is not specified, available values: `rr`, `wrr` and `lc`."
   type        = string
   default     = null
 }
@@ -161,29 +163,29 @@ variable "layer7_listener_id" {
 }
 
 variable "layer7_listener_name" {
-  description = "The GAAP layer7 listener name used to launch a new layer7 listener when 'layer7_listener_id' is not specified."
+  description = "The GAAP layer7 listener name used to launch a new layer7 listener when `layer7_listener_id` is not specified."
   default     = ""
 }
 
 variable "layer7_listener_port" {
-  description = "The GAAP layer7 listener port used to launch a new layer7 listener when 'layer7_listener_id' is not specified."
+  description = "The GAAP layer7 listener port used to launch a new layer7 listener when `layer7_listener_id` is not specified."
   type        = number
   default     = null
 }
 
 variable "layer7_listener_protocol" {
-  description = "The GAAP layer4 listener protocol used to launch a new layer7 listener when 'layer7_listener_id' is not specified, available values: `HTTP` and `HTTPS`."
+  description = "The GAAP layer4 listener protocol used to launch a new layer7 listener when `layer7_listener_id` is not specified, available values: `HTTP` and `HTTPS`."
   default     = ""
 }
 
 variable "layer7_listener_auth_type" {
-  description = "The GAAP layer7 listener auth type used to launch a new layer7 listener when 'layer7_listener_id' is not specified, available values: `0` and `1`."
+  description = "The GAAP layer7 listener auth type used to launch a new layer7 listener when `layer7_listener_id` is not specified, available values: `0` and `1`."
   type        = number
   default     = null
 }
 
 variable "layer7_listener_forward_protocol" {
-  description = "The GAAP layer7 listener forward protocol used to launch a new layer7 listener when 'layer7_listener_id' is not specified, available values: `HTTP` and `HTTPS`."
+  description = "The GAAP layer7 listener forward protocol used to launch a new layer7 listener when `layer7_listener_id` is not specified, available values: `HTTP` and `HTTPS`."
   type        = string
   default     = null
 }
@@ -245,7 +247,7 @@ variable "http_rule_path" {
 }
 
 variable "http_rule_realserver_type" {
-  description = "Specify the GAAP HTTP rule realserver type when `http_rule_id` is not specified, avaliable values: `IP` and `DOMAIN`."
+  description = "Specify the GAAP HTTP rule realserver type when `http_rule_id` is not specified, available values: `IP` and `DOMAIN`."
   type        = string
   default     = null
 }
@@ -261,7 +263,7 @@ variable "http_rule_forward_host" {
 }
 
 variable "http_rule_health_check_method" {
-  description = "Specify the GAAP HTTP rule health check method when `http_rule_id` is not specified, avaliable values: `GET` and `POST`."
+  description = "Specify the GAAP HTTP rule health check method when `http_rule_id` is not specified, available values: `GET` and `POST`."
   type        = string
   default     = null
 }
@@ -284,7 +286,7 @@ variable "http_rule_health_check_interval" {
 }
 
 variable "http_rule_scheduler" {
-  description = "Specify the GAAP HTTP rule scheduler when `http_rule_id` is not specified, avaliable values: `rr`, `wrr` and `lc`."
+  description = "Specify the GAAP HTTP rule scheduler when `http_rule_id` is not specified, available values: `rr`, `wrr` and `lc`."
   type        = string
   default     = null
 }

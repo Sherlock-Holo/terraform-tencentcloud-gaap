@@ -9,29 +9,29 @@ variable "layer7_listener_id" {
 }
 
 variable "layer7_listener_name" {
-  description = "The GAAP layer7 listener name used to launch a new layer7 listener when 'layer7_listener_id' is not specified."
+  description = "The GAAP layer7 listener name used to launch a new layer7 listener when `layer7_listener_id` is not specified."
   default     = ""
 }
 
 variable "layer7_listener_port" {
-  description = "The GAAP layer7 listener port used to launch a new layer7 listener when 'layer7_listener_id' is not specified."
+  description = "The GAAP layer7 listener port used to launch a new layer7 listener when `layer7_listener_id` is not specified."
   type        = number
   default     = null
 }
 
 variable "layer7_listener_protocol" {
-  description = "The GAAP layer7 listener protocol used to launch a new layer7 listener when 'layer7_listener_id' is not specified, available values: `HTTP` and `HTTPS`."
+  description = "The GAAP layer7 listener protocol used to launch a new layer7 listener when `layer7_listener_id` is not specified, available values: `HTTP` and `HTTPS`."
   default     = ""
 }
 
 variable "layer7_listener_auth_type" {
-  description = "The GAAP layer7 listener auth type used to launch a new layer7 listener when 'layer7_listener_id' is not specified, available values: `0` and `1`."
+  description = "The GAAP layer7 listener auth type used to launch a new layer7 listener when `layer7_listener_id` is not specified, available values: `0` and `1`."
   type        = number
   default     = null
 }
 
 variable "layer7_listener_forward_protocol" {
-  description = "The GAAP layer7 listener forward protocol used to launch a new layer7 listener when 'layer7_listener_id' is not specified, available values: `HTTP` and `HTTPS`."
+  description = "The GAAP layer7 listener forward protocol used to launch a new layer7 listener when `layer7_listener_id` is not specified, available values: `HTTP` and `HTTPS`."
   type        = string
   default     = null
 }
