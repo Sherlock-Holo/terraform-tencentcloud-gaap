@@ -1,11 +1,11 @@
 variable "proxy_id" {
-  description = "Specify the GAAP proxy id to launch resources."
-  default     = ""
+  description = "Specify the GAAP proxy ID to launch resources."
+  default = ""
 }
 
 variable "layer4_listener_id" {
-  description = "Specify the GAAP layer4 listener id to launch resources."
-  default     = ""
+  description = "Specify the GAAP layer4 listener ID to launch resources."
+  default = ""
 }
 
 variable "layer4_listener_protocol" {
@@ -53,8 +53,8 @@ variable "layer4_listener_scheduler" {
 }
 
 variable "layer4_listener_realserver_ids" {
-  description = "The list of the GAAP layer4 listener realserver id when `layer4_listener_id` is not specified."
-  type        = list(string)
+  description = "The list of the GAAP layer4 listener realserver ID when `layer4_listener_id` is not specified."
+  type = list(string)
   default     = []
 }
 

@@ -1,11 +1,11 @@
 variable "proxy_id" {
-  description = "Specify the GAAP proxy id to launch resources."
-  default     = ""
+  description = "Specify the GAAP proxy ID to launch resources."
+  default = ""
 }
 
 variable "layer7_listener_id" {
-  description = "Specify the GAAP layer7 listener id to launch resources."
-  default     = ""
+  description = "Specify the GAAP layer7 listener ID to launch resources."
+  default = ""
 }
 
 variable "layer7_listener_name" {
@@ -37,8 +37,8 @@ variable "layer7_listener_forward_protocol" {
 }
 
 variable "http_domain_id" {
-  description = "The GAAP HTTP domain id to launch resources."
-  type        = string
+  description = "The GAAP HTTP domain ID to launch resources."
+  type = string
   default     = ""
 }
 
@@ -64,8 +64,8 @@ variable "http_domain_realserver_auth" {
 }
 
 variable "http_rule_id" {
-  description = "The GAAP HTTP rule id to launch resources."
-  type        = string
+  description = "The GAAP HTTP rule ID to launch resources."
+  type = string
   default     = ""
 }
 
@@ -138,8 +138,8 @@ variable "http_rule_scheduler" {
 }
 
 variable "http_rule_realserver_ids" {
-  description = "The list of the GAAP realserver id when `http_rule_id` is not specified."
-  type        = list(string)
+  description = "The list of the GAAP realserver ID when `http_rule_id` is not specified."
+  type = list(string)
   default     = []
 }
 
@@ -162,8 +162,8 @@ variable "http_rule_realserver_weights" {
 }
 
 variable "layer7_certificate_id" {
-  description = "The GAAP layer7 listener certificate id use to launch resources."
-  default     = ""
+  description = "The GAAP layer7 listener certificate ID use to launch resources."
+  default = ""
 }
 
 variable "layer7_certificate_name" {
@@ -182,8 +182,8 @@ variable "layer7_certificate_key" {
 }
 
 variable "layer7_client_certificate_ids" {
-  description = "The list of GAAP client certificate id use to launch resources."
-  type        = list(string)
+  description = "The list of GAAP client certificate ID use to launch resources."
+  type = list(string)
   default     = null
 }
 
@@ -199,8 +199,8 @@ variable "layer7_client_certificate_contents" {
 }
 
 variable "http_domain_certificate_id" {
-  description = "The GAAP HTTP domain certificate id use to launch resources."
-  default     = "default"
+  description = "The GAAP HTTP domain certificate ID use to launch resources."
+  default = "default"
 }
 
 variable "http_domain_certificate_name" {
@@ -219,8 +219,8 @@ variable "http_domain_certificate_key" {
 }
 
 variable "http_domain_client_certificate_ids" {
-  description = "The list of GAAP HTTP domain client certificate id use to launch resources."
-  type        = list(string)
+  description = "The list of GAAP HTTP domain client certificate ID use to launch resources."
+  type = list(string)
   default     = null
 }
 
@@ -236,8 +236,8 @@ variable "http_domain_client_certificate_contents" {
 }
 
 variable "http_domain_basic_auth_id" {
-  description = "The GAAP HTTP domain basic auth id use to launch resources."
-  default     = ""
+  description = "The GAAP HTTP domain basic auth ID use to launch resources."
+  default = ""
 }
 
 variable "http_domain_basic_auth_name" {
@@ -251,8 +251,8 @@ variable "http_domain_basic_auth_content" {
 }
 
 variable "http_domain_gaap_certificate_id" {
-  description = "The GAAP HTTP domain proxy certificate id use to launch resources."
-  default     = ""
+  description = "The GAAP HTTP domain proxy certificate ID use to launch resources."
+  default = ""
 }
 
 variable "http_domain_gaap_certificate_name" {
@@ -271,8 +271,8 @@ variable "http_domain_gaap_certificate_key" {
 }
 
 variable "http_domain_realserver_certificate_ids" {
-  description = "The list of GAAP HTTP domain realserver certificate id use to launch resources."
-  type        = list(string)
+  description = "The list of GAAP HTTP domain realserver certificate ID use to launch resources."
+  type = list(string)
   default     = null
 }
 
