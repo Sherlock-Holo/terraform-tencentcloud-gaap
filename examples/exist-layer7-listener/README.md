@@ -18,7 +18,9 @@ Note, this example may create resources which cost money. Run `terraform destroy
 
 | Name | Description |
 |------|-------------|
-| http_listener_id | GAAP HTTP listener ID. |
+| http_listener_id | The list of GAAP HTTP listener ID. |
 | http_rule_id | The list of GAAP HTTP rule ID. |
-| https_listener_id | GAAP HTTPS listener ID. |
+| https_listener_id | The list of GAAP HTTPS listener ID. |
 | https_rule_id | The list of GAAP HTTPS rule ID. |
+| http_domain_error_page_id | The list of GAAP HTTP domain error page ID. |
+| https_domain_error_page_id | The list of GAAP HTTPS domain error page ID. |

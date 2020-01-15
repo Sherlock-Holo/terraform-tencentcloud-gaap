@@ -12,7 +12,7 @@ variable "proxy_tags" {
 
 variable "proxy_id" {
   description = "The GAAP proxy ID use to launch resources."
-  default = ""
+  default     = ""
 }
 
 variable "proxy_name" {
@@ -44,7 +44,7 @@ variable "proxy_concurrent" {
 
 variable "proxy_project_id" {
   description = "The proxy project ID used to launch a new proxy when `proxy_id` is not specified."
-  type = number
+  type        = number
   default     = 0
 }
 
@@ -55,7 +55,7 @@ variable "proxy_enable" {
 
 variable "proxy_security_policy_id" {
   description = "The GAAP proxy security policy ID use to launch resources."
-  default = ""
+  default     = ""
 }
 
 variable "proxy_security_policy_enable" {
@@ -99,7 +99,7 @@ variable "proxy_security_policy_rule_cidr_ips" {
 
 variable "layer4_listener_id" {
   description = "Specify the GAAP layer4 listener ID to launch resources."
-  default = ""
+  default     = ""
 }
 
 variable "layer4_listener_protocol" {
@@ -159,7 +159,7 @@ variable "layer4_listenere_realservers" {
 
 variable "layer7_listener_id" {
   description = "Specify the GAAP layer4 listener ID to launch resources."
-  default = ""
+  default     = ""
 }
 
 variable "layer7_listener_name" {
@@ -192,7 +192,7 @@ variable "layer7_listener_forward_protocol" {
 
 variable "http_domain_id" {
   description = "The GAAP HTTP domain ID to launch resources."
-  type = string
+  type        = string
   default     = ""
 }
 
@@ -219,7 +219,7 @@ variable "http_domain_realserver_auth" {
 
 variable "http_rule_id" {
   description = "The GAAP HTTP rule ID to launch resources."
-  type = string
+  type        = string
   default     = ""
 }
 
@@ -299,7 +299,7 @@ variable "http_rule_realservers" {
 
 variable "layer7_certificate_id" {
   description = "The GAAP layer7 listener certificate ID use to launch resources."
-  default = ""
+  default     = ""
 }
 
 variable "layer7_certificate_name" {
@@ -319,7 +319,7 @@ variable "layer7_certificate_key" {
 
 variable "layer7_client_certificate_ids" {
   description = "The list of GAAP client certificate ID use to launch resources."
-  type = list(string)
+  type        = list(string)
   default     = null
 }
 
@@ -336,7 +336,7 @@ variable "layer7_client_certificate_contents" {
 
 variable "http_domain_certificate_id" {
   description = "The GAAP HTTP domain certificate ID use to launch resources."
-  default = "default"
+  default     = "default"
 }
 
 variable "http_domain_certificate_name" {
@@ -356,7 +356,7 @@ variable "http_domain_certificate_key" {
 
 variable "http_domain_client_certificate_ids" {
   description = "The list of GAAP HTTP domain client certificate ID use to launch resources."
-  type = list(string)
+  type        = list(string)
   default     = null
 }
 
@@ -373,7 +373,7 @@ variable "http_domain_client_certificate_contents" {
 
 variable "http_domain_basic_auth_id" {
   description = "The GAAP HTTP domain basic auth ID use to launch resources."
-  default = ""
+  default     = ""
 }
 
 variable "http_domain_basic_auth_name" {
@@ -388,7 +388,7 @@ variable "http_domain_basic_auth_content" {
 
 variable "http_domain_gaap_certificate_id" {
   description = "The GAAP HTTP domain proxy certificate ID use to launch resources."
-  default = ""
+  default     = ""
 }
 
 variable "http_domain_gaap_certificate_name" {
@@ -408,7 +408,7 @@ variable "http_domain_gaap_certificate_key" {
 
 variable "http_domain_realserver_certificate_ids" {
   description = "The list of GAAP HTTP domain realserver certificate ID use to launch resources."
-  type = list(string)
+  type        = list(string)
   default     = null
 }
 
@@ -436,7 +436,7 @@ variable "realserver_tags" {
 
 variable "realserver_ids" {
   description = "The list of GAAP realserver ID to launch resources."
-  type = list(string)
+  type        = list(string)
   default     = []
 }
 
@@ -447,7 +447,7 @@ variable "realserver_name" {
 
 variable "realserver_project_id" {
   description = "Specified the GAAP realserver project ID to launch resources when `realserver_ids` is not specified."
-  default = 0
+  default     = 0
 }
 
 variable "realserver_ips" {
@@ -472,4 +472,33 @@ variable "realserver_bind_weight" {
   description = "The list of realserver weight which will bind to a layer4 listener or HTTP rule."
   type        = list(number)
   default     = []
+}
+
+variable "domain_error_page_body" {
+  description = "Specify the GAAP error page body."
+  default     = ""
+}
+
+variable "domain_error_page_error_codes" {
+  description = "Specify the GAAP error page original error codes."
+  type        = list(number)
+  default     = []
+}
+
+variable "domain_error_page_clear_headers" {
+  description = "Specify the GAAP error page remove headers."
+  type        = list(string)
+  default     = []
+}
+
+variable "domain_error_page_new_error_code" {
+  description = "Specify the GAAP error page new error code."
+  type        = number
+  default     = null
+}
+
+variable "domain_error_page_set_headers" {
+  description = "Specify the GAAP error page new response headers."
+  type        = map(string)
+  default     = {}
 }

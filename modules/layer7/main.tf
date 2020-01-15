@@ -102,3 +102,15 @@ resource "tencentcloud_gaap_http_rule" "default" {
     }
   }
 }
+
+resource "tencentcloud_gaap_domain_error_page" "default" {
+  count = var.domain_error_page_body == "" ? 0 : 1
+
+  body           = var.domain_error_page_body
+  domain         = length(tencentcloud_gaap_http_domain.default) > 0 ? tencentcloud_gaap_http_domain.default[0].domain : var.http_domain
+  error_codes    = var.domain_error_page_error_codes
+  listener_id    = var.layer7_listener_id != "" ? var.layer7_listener_id : tencentcloud_gaap_layer7_listener.default[0].id
+  clear_headers  = var.domain_error_page_clear_headers
+  new_error_code = var.domain_error_page_new_error_code
+  set_headers    = var.domain_error_page_set_headers
+}

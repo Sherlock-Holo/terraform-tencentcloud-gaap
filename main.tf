@@ -132,4 +132,10 @@ module "layer7_listener" {
   http_rule_realserver_type    = var.http_rule_realserver_type
 
   http_rule_scheduler = var.http_rule_scheduler
+
+  domain_error_page_body           = var.domain_error_page_body
+  domain_error_page_error_codes    = var.domain_error_page_error_codes
+  domain_error_page_clear_headers  = var.domain_error_page_clear_headers
+  domain_error_page_new_error_code = var.domain_error_page_new_error_code
+  domain_error_page_set_headers    = var.domain_error_page_set_headers
 }

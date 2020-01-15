@@ -6,7 +6,7 @@ variable "tags" {
 
 variable "realserver_ids" {
   description = "The list of GAAP realserver ID to launch resources."
-  type = list(string)
+  type        = list(string)
   default     = []
 }
 
@@ -17,7 +17,7 @@ variable "realserver_name" {
 
 variable "realserver_project_id" {
   description = "Specify the GAAP realserver project ID to launch resources when `realserver_ids` is not specified."
-  default = 0
+  default     = 0
 }
 
 variable "realserver_ips" {

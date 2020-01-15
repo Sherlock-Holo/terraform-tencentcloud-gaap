@@ -18,7 +18,8 @@ Note, this example may create resources which cost money. Run `terraform destroy
 
 | Name | Description |
 |------|-------------|
-| proxy_id | GAAP proxy ID. |
-| layer4_listener_id | GAAP layer4 listener ID. |
-| layer7_listener_id | GAAP layer7 listener ID. |
-| realserver_ids | A list of GAAP realserver ID. |
+| proxy_id | The list of GAAP proxy ID. |
+| layer4_listener_id | The list of GAAP layer4 listener ID. |
+| layer7_listener_id | The list of GAAP layer7 listener ID. |
+| realserver_ids | The list of GAAP realserver ID. |
+| domain_error_page_id | The list of GAAP domain error page ID. |

@@ -6,7 +6,7 @@ variable "tags" {
 
 variable "proxy_id" {
   description = "The GAAP proxy ID use to launch resources."
-  default = ""
+  default     = ""
 }
 
 variable "proxy_name" {
@@ -38,7 +38,7 @@ variable "proxy_concurrent" {
 
 variable "proxy_project_id" {
   description = "The proxy project ID used to launch a new proxy when `proxy_id` is not specified."
-  type = number
+  type        = number
   default     = 0
 }
 
@@ -49,7 +49,7 @@ variable "proxy_enable" {
 
 variable "proxy_security_policy_id" {
   description = "The GAAP proxy security policy ID use to launch resources."
-  default = ""
+  default     = ""
 }
 
 variable "proxy_security_policy_enable" {

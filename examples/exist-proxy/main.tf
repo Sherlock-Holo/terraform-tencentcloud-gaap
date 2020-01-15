@@ -44,4 +44,13 @@ module "layer7_listener" {
   realserver_ips         = module.layer4_listener.realserver_address
   realserver_bind_port   = [80, 80]
   realserver_bind_weight = [1, 1]
+
+  domain_error_page_body           = "test error\r\n"
+  domain_error_page_error_codes    = [404, 503]
+  domain_error_page_clear_headers  = ["X-TEST", "X-ERROR"]
+  domain_error_page_new_error_code = 403
+  domain_error_page_set_headers = {
+    "X-TT" : "TT",
+    "X-ERR" : "ERR",
+  }
 }

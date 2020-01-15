@@ -13,9 +13,9 @@ output "layer7_listener_id" {
   value       = module.layer7_listener.listener_id
 }
 
-output "http_domian_id" {
+output "http_domain_id" {
   description = "The list of GAAP HTTP domain ID."
-  value       = module.layer7_listener.http_domian_id
+  value       = module.layer7_listener.http_domain_id
 }
 
 output "http_rule_id" {
@@ -33,9 +33,9 @@ output "layer7_listener_client_certificate_id" {
   value       = module.layer7_listener.listener_client_certificate_id
 }
 
-output "http_domain_certificiate_id" {
+output "http_domain_certificate_id" {
   description = "The list of GAAP HTTP domain certificate ID."
-  value       = module.layer7_listener.http_domain_certificiate_id
+  value       = module.layer7_listener.http_domain_certificate_id
 }
 
 output "http_domain_client_certificate_id" {
@@ -66,4 +66,9 @@ output "realserver_ids" {
 output "realserver_address" {
   description = "The list of realserver address."
   value       = module.realserver.realserver_address
+}
+
+output "domain_error_page_id" {
+  description = "The list of GAAP domain error page ID."
+  value       = module.layer7_listener.domain_error_page_id
 }
