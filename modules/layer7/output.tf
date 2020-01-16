@@ -35,17 +35,17 @@ output "http_domain_client_certificate_id" {
 
 output "http_domain_gaap_certificate_id" {
   description = "The list of GAAP HTTP domain proxy certificate ID."
-  value       = var.http_domain_gaap_certificate_id != "" ? [var.http_domain_gaap_certificate_id] : tencentcloud_gaap_certificate.http_domain_gaap_certificate.*.id
+  value       = var.gaap_certificate_id != "" ? [var.gaap_certificate_id] : tencentcloud_gaap_certificate.http_domain_gaap_certificate.*.id
 }
 
 output "http_domain_basic_auth_id" {
   description = "The list of GAAP HTTP domain basic auth ID."
-  value       = var.http_domain_basic_auth_id != "" ? [var.http_domain_basic_auth_id] : tencentcloud_gaap_certificate.http_domain_basic_certificate.*.id
+  value       = var.basic_auth_id != "" ? [var.basic_auth_id] : tencentcloud_gaap_certificate.http_domain_basic_certificate.*.id
 }
 
 output "http_domain_realserver_certificate_id" {
   description = "The list of GAAP HTTP domain realserver certificate ID."
-  value       = var.http_domain_realserver_certificate_id != null ? [var.http_domain_realserver_certificate_id] : tencentcloud_gaap_certificate.http_domain_realserver_certificate.*.id
+  value       = var.realserver_certificate_id != null ? [var.realserver_certificate_id] : tencentcloud_gaap_certificate.http_domain_realserver_certificate.*.id
 }
 
 output "domain_error_page_id" {

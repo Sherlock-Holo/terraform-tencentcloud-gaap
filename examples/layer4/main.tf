@@ -35,10 +35,10 @@ module "realserver" {
 
 resource "tencentcloud_gaap_realserver" "rs1" {
   ip   = "1.1.1.1"
-  name = "tf-moudle-realserver"
+  name = "tf-module-realserver"
 }
 
 resource "tencentcloud_gaap_realserver" "rs2" {
   ip   = "8.8.8.8"
-  name = "tf-moudle-realserver"
+  name = "tf-module-realserver"
 }

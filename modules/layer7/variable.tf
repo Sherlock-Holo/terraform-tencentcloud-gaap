@@ -108,7 +108,7 @@ variable "http_rule_id" {
 }
 
 variable "http_rule_domain" {
-  description = "Specify the GAAP HTTP rule domain when `http_rule_id` is not specified."
+  description = "Specify the GAAP HTTP rule domain when `http_rule_id` is not specified, if empty, will use `http_domain`."
   type        = string
   default     = ""
 }
@@ -121,7 +121,7 @@ variable "health_check" {
 variable "path" {
   description = "Specify the GAAP HTTP rule path when `http_rule_id` is not specified."
   type        = string
-  default     = null
+  default     = "/"
 }
 
 variable "realserver_type" {
@@ -136,7 +136,7 @@ variable "connect_timeout" {
   default     = 2
 }
 
-variable "http_rule_forward_host" {
+variable "forward_host" {
   description = "Specify the GAAP HTTP rule forward host when `http_rule_id` is not specified."
   default     = "default"
 }
@@ -244,7 +244,7 @@ variable "http_domain_certificate_key" {
 
 variable "http_domain_client_certificate_id" {
   description = "The GAAP HTTP domain certificate ID use to launch resources."
-  default     = "default"
+  default     = ""
 }
 
 variable "http_domain_client_certificate_name" {
@@ -257,57 +257,57 @@ variable "http_domain_client_certificate_content" {
   default     = ""
 }
 
-variable "http_domain_basic_auth_id" {
+variable "basic_auth_id" {
   description = "The GAAP HTTP domain basic auth ID use to launch resources."
   default     = ""
 }
 
-variable "http_domain_basic_auth_name" {
+variable "basic_auth_name" {
   description = "The GAAP HTTP domain basic auth name when `http_domain_basic_auth_id` is not specified."
   default     = "tfmodule-hd-basic-cert"
 }
 
-variable "http_domain_basic_auth_content" {
+variable "basic_auth_content" {
   description = "The GAAP HTTP domain basic auth content when `http_domain_basic_auth_id` is not specified."
   default     = ""
 }
 
-variable "http_domain_gaap_certificate_id" {
+variable "gaap_certificate_id" {
   description = "The GAAP HTTP domain proxy certificate ID use to launch resources."
   default     = ""
 }
 
-variable "http_domain_gaap_certificate_name" {
+variable "gaap_certificate_name" {
   description = "The GAAP HTTP domain proxy certificate name when `http_domain_gaap_certificate_id` is not specified."
   default     = "tfmodule-hd-proxy-cert"
 }
 
-variable "http_domain_gaap_certificate_content" {
+variable "gaap_certificate_content" {
   description = "The GAAP HTTP domain proxy certificate content when `http_domain_gaap_certificate_id` is not specified."
   default     = ""
 }
 
-variable "http_domain_gaap_certificate_key" {
+variable "gaap_certificate_key" {
   description = "The GAAP HTTP domain proxy certificate key when `http_domain_gaap_certificate_id` is not specified."
   default     = ""
 }
 
-variable "http_domain_realserver_certificate_id" {
+variable "realserver_certificate_id" {
   description = "The GAAP HTTP domain realserver certificate ID use to launch resources."
   default     = ""
 }
 
-variable "http_domain_realserver_certificate_name" {
+variable "realserver_certificate_name" {
   description = "The GAAP HTTP domain realserver certificate name when `http_domain_realserver_certificate_id` is not specified."
   default     = "tfmodule-hd-proxy-cert"
 }
 
-variable "http_domain_realserver_certificate_content" {
+variable "realserver_certificate_content" {
   description = "The GAAP HTTP domain realserver certificate content when `http_domain_realserver_certificate_id` is not specified."
   default     = ""
 }
 
-variable "http_domain_realserver_certificate_domain" {
+variable "realserver_certificate_domain" {
   description = "The GAAP HTTP domain realserver certificate domain when `http_domain_realserver_certificate_id` is not specified."
   default     = ""
 }

@@ -77,7 +77,7 @@ This module can create GAAP layer7 listener.
 | http_rule_id | The GAAP HTTP rule ID to launch resources. | string | "" | no |
 | http_rule_domain | Specify the GAAP HTTP rule domain when `http_rule_id` is not specified. | string | "" | no |
 | health_check | Specify if enable the GAAP HTTP rule health check or not when `http_rule_id` is not specified. | bool | false | no |
-| path | Specify the GAAP HTTP rule path when `http_rule_id` is not specified. | string | null | no |
+| path | Specify the GAAP HTTP rule path when `http_rule_id` is not specified. | string | "" | no |
 | realserver_type | Specify the GAAP HTTP rule realserver type when `http_rule_id` is not specified, available values: `IP` and `DOMAIN`. | string | null | no |
 | connect_timeout | Specify the GAAP HTTP rule connect timeout when `http_rule_id` is not specified. | integer | 2 | no |
 | http_rule_forward_host | Specify the GAAP HTTP rule forward host when `http_rule_id` is not specified. | string | "default" | no |
@@ -100,7 +100,7 @@ This module can create GAAP layer7 listener.
 | http_domain_certificate_name | The GAAP HTTP domain certificate name when `http_domain_certificate_id` is not specified. | string | "tfmodule-hd-cert" | no |
 | http_domain_certificate_content | The GAAP HTTP domain certificate content when `http_domain_certificate_id` is not specified. | string | "" | no |
 | http_domain_certificate_key | The GAAP HTTP domain certificate key when `http_domain_certificate_id` is not specified. | string | "" | no |
-| http_domain_client_certificate_id | The GAAP HTTP domain certificate ID use to launch resources. | string | "default" | no |
+| http_domain_client_certificate_id | The GAAP HTTP domain certificate ID use to launch resources. | string | null | no |
 | http_domain_client_certificate_name | The GAAP HTTP domain client certificate name when `http_domain_client_certificate_id` is not specified. | string | "tfmodule-hd-client-cert" | no |
 | http_domain_client_certificate_content | The GAAP HTTP domain client certificate content when `http_domain_client_certificate_id` is not specified. | string | "" | no |
 | http_domain_basic_auth_id | The GAAP HTTP domain basic auth ID use to launch resources. | string | "" | no |

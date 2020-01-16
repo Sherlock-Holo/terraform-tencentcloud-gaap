@@ -27,14 +27,14 @@ resource "tencentcloud_gaap_certificate" "listener_client_certificate" {
 
 resource "tencentcloud_gaap_layer7_listener" "default" {
   count                  = var.protocol != "" ? 1 : 0
-  proxy_id               = var.proxy_id
+  proxy_id               = length(tencentcloud_gaap_proxy.default) > 0 ? tencentcloud_gaap_proxy.default[0].id : var.proxy_id
   name                   = var.name
   port                   = var.port
   protocol               = var.protocol
   forward_protocol       = var.forward_protocol
   auth_type              = var.auth_type
   certificate_id         = length(tencentcloud_gaap_certificate.listener_certificate) > 0 ? tencentcloud_gaap_certificate.listener_certificate[0].id : var.listener_certificate_id
-  client_certificate_ids = length(tencentcloud_gaap_certificate.listener_client_certificate) == 0 && var.listener_client_certificate_id == "" ? null : concat(tencentcloud_gaap_certificate.listener_client_certificate.*.id, [var.listener_client_certificate_id])
+  client_certificate_ids = length(tencentcloud_gaap_certificate.listener_client_certificate) == 0 && var.listener_client_certificate_id == "" ? null : compact(concat(tencentcloud_gaap_certificate.listener_client_certificate.*.id, [var.listener_client_certificate_id]))
 }
 
 resource "tencentcloud_gaap_certificate" "http_domain_certificate" {
@@ -53,24 +53,24 @@ resource "tencentcloud_gaap_certificate" "http_domain_client_certificate" {
 }
 
 resource "tencentcloud_gaap_certificate" "http_domain_basic_certificate" {
-  count   = var.http_domain_basic_auth_content != "" ? 1 : 0
-  name    = var.http_domain_basic_auth_name
-  content = var.http_domain_basic_auth_content
+  count   = var.basic_auth_content != "" ? 1 : 0
+  name    = var.basic_auth_name
+  content = var.basic_auth_content
   type    = "BASIC"
 }
 
 resource "tencentcloud_gaap_certificate" "http_domain_gaap_certificate" {
-  count   = var.http_domain_gaap_certificate_content != "" ? 1 : 0
-  name    = var.http_domain_gaap_certificate_name
-  content = var.http_domain_gaap_certificate_content
-  key     = var.http_domain_gaap_certificate_key
+  count   = var.gaap_certificate_content != "" ? 1 : 0
+  name    = var.gaap_certificate_name
+  content = var.gaap_certificate_content
+  key     = var.gaap_certificate_key
   type    = "PROXY"
 }
 
 resource "tencentcloud_gaap_certificate" "http_domain_realserver_certificate" {
-  count   = var.http_domain_realserver_certificate_content != "" ? 1 : 0
-  name    = var.http_domain_realserver_certificate_name
-  content = var.http_domain_realserver_certificate_content
+  count   = var.realserver_certificate_content != "" ? 1 : 0
+  name    = var.realserver_certificate_name
+  content = var.realserver_certificate_content
   type    = "REALSERVER"
 }
 
@@ -79,20 +79,20 @@ resource "tencentcloud_gaap_http_domain" "default" {
   domain                        = var.http_domain
   listener_id                   = length(tencentcloud_gaap_layer7_listener.default) > 0 ? tencentcloud_gaap_layer7_listener.default[0].id : var.listener_id
   basic_auth                    = var.basic_auth
-  basic_auth_id                 = length(tencentcloud_gaap_certificate.http_domain_basic_certificate) > 0 ? tencentcloud_gaap_certificate.http_domain_basic_certificate[0].id : var.http_domain_basic_auth_id
+  basic_auth_id                 = length(tencentcloud_gaap_certificate.http_domain_basic_certificate) > 0 ? tencentcloud_gaap_certificate.http_domain_basic_certificate[0].id : var.basic_auth_id
   certificate_id                = length(tencentcloud_gaap_certificate.http_domain_certificate) > 0 ? tencentcloud_gaap_certificate.http_domain_certificate[0].id : var.http_domain_certificate_id
-  client_certificate_ids        = length(tencentcloud_gaap_certificate.http_domain_client_certificate) == 0 && var.http_domain_client_certificate_id == "" ? null : concat(tencentcloud_gaap_certificate.http_domain_client_certificate.*.id, [var.http_domain_client_certificate_id])
+  client_certificate_ids        = length(tencentcloud_gaap_certificate.http_domain_client_certificate) == 0 && var.http_domain_client_certificate_id == "" ? null : compact(concat(tencentcloud_gaap_certificate.http_domain_client_certificate.*.id, [var.http_domain_client_certificate_id]))
   gaap_auth                     = var.gaap_auth
-  gaap_auth_id                  = length(tencentcloud_gaap_certificate.http_domain_gaap_certificate) > 0 ? tencentcloud_gaap_certificate.http_domain_gaap_certificate[0].id : var.http_domain_gaap_certificate_id
+  gaap_auth_id                  = length(tencentcloud_gaap_certificate.http_domain_gaap_certificate) > 0 ? tencentcloud_gaap_certificate.http_domain_gaap_certificate[0].id : var.gaap_certificate_id
   realserver_auth               = var.realserver_auth
-  realserver_certificate_domain = var.http_domain_realserver_certificate_domain
-  realserver_certificate_ids    = length(tencentcloud_gaap_certificate.http_domain_realserver_certificate) == 0 && var.http_domain_realserver_certificate_id == "" ? null : concat(tencentcloud_gaap_certificate.http_domain_realserver_certificate.*.id, [var.http_domain_realserver_certificate_id])
+  realserver_certificate_domain = var.realserver_certificate_domain
+  realserver_certificate_ids    = length(tencentcloud_gaap_certificate.http_domain_realserver_certificate) == 0 && var.realserver_certificate_id == "" ? null : compact(concat(tencentcloud_gaap_certificate.http_domain_realserver_certificate.*.id, [var.realserver_certificate_id]))
 }
 
 resource "tencentcloud_gaap_http_rule" "default" {
-  count = var.http_rule_id == "" && var.http_domain != "" && var.path != "" ? 1 : 0
+  count = var.http_rule_id == "" && (var.http_domain != "" || var.http_rule_domain != "") && var.path != "" ? 1 : 0
 
-  domain                    = length(tencentcloud_gaap_http_domain.default) > 0 ? tencentcloud_gaap_http_domain.default[0].domain : var.http_domain
+  domain                    = length(tencentcloud_gaap_http_domain.default) > 0 ? tencentcloud_gaap_http_domain.default[0].domain : coalesce(var.http_rule_domain, var.http_domain)
   health_check              = var.health_check
   listener_id               = length(tencentcloud_gaap_layer7_listener.default) > 0 ? tencentcloud_gaap_layer7_listener.default[0].id : var.listener_id
   path                      = var.path
@@ -103,6 +103,7 @@ resource "tencentcloud_gaap_http_rule" "default" {
   health_check_status_codes = var.health_check_status_codes
   interval                  = var.interval
   scheduler                 = var.scheduler
+  forward_host              = var.forward_host
 
   dynamic "realservers" {
     for_each = var.realservers
