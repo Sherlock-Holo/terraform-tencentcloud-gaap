@@ -1,4 +1,4 @@
-# TencentCloud GAAP Module for Terraform
+# TencentCloud GAAP module for Terraform
 
 ## terraform-tencentcloud-gaap
 
@@ -55,56 +55,65 @@ This module can create GAAP layer7 listener.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| layer7_listener_id | Specify the GAAP layer4 listener ID to launch resources. | string | "" | no |
-| layer7_listener_name | The GAAP layer7 listener name used to launch a new layer7 listener when `layer7_listener_id` is not specified. | string | "" | no |
-| layer7_listener_port | The GAAP layer7 listener port used to launch a new layer7 listener when `layer7_listener_id` is not specified. | integer | null | no |
-| layer7_listener_protocol | The GAAP layer4 listener protocol used to launch a new layer7 listener when `layer7_listener_id` is not specified, available values: `HTTP` and `HTTPS`. | string | "" | no |
-| layer7_listener_auth_type | The GAAP layer7 listener auth type used to launch a new layer7 listener when `layer7_listener_id` is not specified, available values: `0` and `1`. | integer | null | no |
-| layer7_listener_forward_protocol | The GAAP layer7 listener forward protocol used to launch a new layer7 listener when `layer7_listener_id` is not specified, available values: `HTTP` and `HTTPS`. | string | null | no |
+| project_id | Specify the project id. | integer | 0 | no |
+| tags | Specify the tags. | map(string) | {} | no |
+| proxy_id | Specify the GAAP proxy ID to launch resources. | string | "" | no |
+| proxy_name | Specify the GAAP proxy name to launch a GAAP proxy when `proxy_id` is not specified. | string | "tf-module-proxy" | no |
+| access_region | Specify the GAAP proxy access region to launch a GAAP proxy when `proxy_id` is not specified. | string | "" | no |
+| realserver_region | Specify the GAAP proxy realserver region to launch a GAAP proxy when `proxy_id` is not specified. | string | "" | no |
+| bandwidth | Specify the GAAP proxy bandwidth to launch a GAAP proxy when `proxy_id` is not specified. | integer | null | no |
+| concurrent | Specify the GAAP proxy concurrent to launch a GAAP proxy when `proxy_id` is not specified. | integer | null | no |
+| listener_id | Specify the GAAP layer7 listener ID to launch resources. | string | "" | no |
+| name | The GAAP layer7 listener name used to launch a new layer7 listener when `listener_id` is not specified. | string | tf-module-layer7-listener | no |
+| port | The GAAP layer7 listener port used to launch a new layer7 listener when `listener_id` is not specified. | integer | null | no |
+| protocol | The GAAP layer7 listener protocol used to launch a new layer7 listener when `listener_id` is not specified, available values: `HTTP` and `HTTPS`. | string | "" | no |
+| auth_type | The GAAP layer7 listener auth type used to launch a new layer7 listener when `listener_id` is not specified, available values: `0` and `1`. | integer | null | no |
+| forward_protocol | The GAAP layer7 listener forward protocol used to launch a new layer7 listener when `listener_id` is not specified, available values: `HTTP` and `HTTPS`. | string | null | no |
 | http_domain_id | The GAAP HTTP domain ID to launch resources. | string | "" | no |
 | http_domain | Specify GAAP HTTP domain to launch resources when `http_domain_id` is not specified. | string | "" | no |
-| http_domain_basic_auth | Specify if enable the GAAP HTTP domain basic auth or not when `http_domain_id` is not specified. | bool | false | no |
-| http_domain_gaap_auth | Specify if enable the GAAP HTTP domain proxy auth or not when `http_domain_id` is not specified. | bool | false | no |
-| http_domain_realserver_auth | Specify if enable the GAAP HTTP domain realserver auth or not when `http_domain_id` is not specified. | bool | false | no |
+| basic_auth | Specify if enable the GAAP HTTP domain basic auth or not when `http_domain_id` is not specified. | boll | false | no |
+| gaap_auth | Specify if enable the GAAP HTTP domain proxy auth or not when `http_domain_id` is not specified. | bool | false | no |
+| realserver_auth | Specify if enable the GAAP HTTP domain realserver auth or not when `http_domain_id` is not specified. | bool | false | no |
 | http_rule_id | The GAAP HTTP rule ID to launch resources. | string | "" | no |
 | http_rule_domain | Specify the GAAP HTTP rule domain when `http_rule_id` is not specified. | string | "" | no |
-| http_rule_listener | Specify the GAAP HTTP rule layer7 listener when `http_rule_id` is not specified. | string | "" | no |
-| http_rule_health_check | Specify if enable the GAAP HTTP rule health check or not when `http_rule_id` is not specified. | bool | false | no |
-| http_rule_path | Specify the GAAP HTTP rule path when `http_rule_id` is not specified. | string | null | no |
-| http_rule_realserver_type | Specify the GAAP HTTP rule realserver type when `http_rule_id` is not specified, available values: `IP` and `DOMAIN`. | string | null | no |
-| http_rule_connect_timeout | Specify the GAAP HTTP rule connect timeout when `http_rule_id` is not specified. | integer | 2 | no |
+| health_check | Specify if enable the GAAP HTTP rule health check or not when `http_rule_id` is not specified. | bool | false | no |
+| path | Specify the GAAP HTTP rule path when `http_rule_id` is not specified. | string | null | no |
+| realserver_type | Specify the GAAP HTTP rule realserver type when `http_rule_id` is not specified, available values: `IP` and `DOMAIN`. | string | null | no |
+| connect_timeout | Specify the GAAP HTTP rule connect timeout when `http_rule_id` is not specified. | integer | 2 | no |
 | http_rule_forward_host | Specify the GAAP HTTP rule forward host when `http_rule_id` is not specified. | string | "default" | no |
-| http_rule_health_check_method | Specify the GAAP HTTP rule health check method when `http_rule_id` is not specified, available values: `GET` and `POST`. | string | null | no |
-| http_rule_health_check_path | Specify the GAAP HTTP rule health check path when `http_rule_id` is not specified. | string | null | no |
-| http_rule_health_check_status_codes | The list of GAAP HTTP rule health check status code when `http_rule_id` is not specified. | list(integer) | null | no |
-| http_rule_health_check_interval | Specify the GAAP HTTP rule health check interval when `http_rule_id` is not specified. | integer | 5 | no |
-| http_rule_scheduler | Specify the GAAP HTTP rule scheduler when `http_rule_id` is not specified, available values: `rr`, `wrr` and `lc`. | string | null | no |
-| http_rule_realservers | The list of the GAAP HTTP rule realserver config when `http_rule_id` is not specified, each config must contain key `id`, `ip`, `port` and `weight`. | list(map(string)) | null | no |
-| layer7_certificate_id | The GAAP layer7 listener certificate ID use to launch resources. | string | "" | no |
-| layer7_certificate_name | The GAAP layer7 certificate name when `layer7_certificate_id` is not specified. | string | "tf-module-layer7-certificate" | no |
-| layer7_certificate_content | The GAAP layer7 certificate content when `layer7_certificate_id` is not specified. | string | "" | no |
-| layer7_certificate_key | The GAAP layer7 certificate key when `layer7_certificate_id` is not specified. | string | "" | no |
-| layer7_client_certificate_ids | The list of GAAP client certificate ID use to launch resources. | list(string) | null | no |
-| layer7_client_certificate_name | The GAAP client certificate name when `layer7_client_certificate_ids` is not specified. | string | "tfmodule-l7-clientcertificate" | no |
-| layer7_client_certificate_contents | The list of GAAP client certificate content when `layer7_client_certificate_ids` is not specified. | list(string) | null | no |
-| http_domain_certificate_id | The GAAP HTTP domain certificate ID use to launch resources. | string | default | no |
-| http_domain_certificate_name | The GAAP HTTP domain certificate name when `http_domain_certificate_id` is not specified. | string | "tf-module-hd-certificate" | no |
+| health_check_method | Specify the GAAP HTTP rule health check method when `http_rule_id` is not specified, available values: `GET` and `POST`. | string | null | no |
+| health_check_path | Specify the GAAP HTTP rule health check path when `http_rule_id` is not specified. | string | null | no |
+| health_check_status_codes | The list of GAAP HTTP rule health check status code when `http_rule_id` is not specified. | list(number) | null | no |
+| interval | Specify the GAAP HTTP rule health check interval when `http_rule_id` is not specified. | number | 5 | no |
+| scheduler | Specify the GAAP HTTP rule scheduler when `http_rule_id` is not specified, available values: `rr`, `wrr` and `lc`. | string | "rr" | no |
+| create_realserver | Specify create new realservers with specified config in `realservers` or not. |       bool        |              false              | no |
+| realserver_name | Specify the realserver name when `create_realserver` is `true`. | string | "tf-module-realserver" | no |
+| realservers | The list of GAAP layer4 listener binding realserver config, each map contains `id`, `ip`, `domain` and `port`. If not specify `weight`, will use default value `1`; If `create_realserver` is `true`, `id` will be ignored. | list(map(string)) | [] | no |
+| listener_certificate_id | The GAAP layer7 listener certificate ID use to launch resources. | string | "" | no |
+| listener_certificate_name | The GAAP layer7 certificate name when `listener_certificate_id` is not specified. | string | "tfmodule-listener-cert" | no |
+| listener_certificate_content | The GAAP layer7 certificate content when `listener_certificate_id` is not specified. | string | "" | no |
+| listener_certificate_key | The GAAP layer7 certificate key when `listener_certificate_id` is not specified. | string | "" | no |
+| listener_client_certificate_id | The GAAP layer7 listener client certificate ID use to launch resources. | string | "" | no |
+| listener_client_certificate_name | The GAAP layer7 listener client certificate name when `listener_client_certificate_id` is not specified. | string | "tfmodule-listener-client-cert" | no |
+| listener_client_certificate_content | The GAAP layer7 listener client certificate content when `listener_client_certificate_id` is not specified. | string | "" | no |
+| http_domain_certificate_id | The GAAP HTTP domain certificate ID use to launch resources. | string | "default" | no |
+| http_domain_certificate_name | The GAAP HTTP domain certificate name when `http_domain_certificate_id` is not specified. | string | "tfmodule-hd-cert" | no |
 | http_domain_certificate_content | The GAAP HTTP domain certificate content when `http_domain_certificate_id` is not specified. | string | "" | no |
 | http_domain_certificate_key | The GAAP HTTP domain certificate key when `http_domain_certificate_id` is not specified. | string | "" | no |
-| http_domain_client_certificate_ids | The list of GAAP HTTP domain client certificate ID use to launch resources. | list(string) | null | no |
-| http_domain_client_certificate_name | The GAAP HTTP domain certificate name when `http_domain_client_certificate_ids` is not specified. | string | "tfmodule-hd-clientcertificate" | no |
-| http_domain_client_certificate_contents | The list of GAAP HTTP domain client certificate content when `http_domain_client_certificate_ids` is not specified. | list(string) | [] | no |
+| http_domain_client_certificate_id | The GAAP HTTP domain certificate ID use to launch resources. | string | "default" | no |
+| http_domain_client_certificate_name | The GAAP HTTP domain client certificate name when `http_domain_client_certificate_id` is not specified. | string | "tfmodule-hd-client-cert" | no |
+| http_domain_client_certificate_content | The GAAP HTTP domain client certificate content when `http_domain_client_certificate_id` is not specified. | string | "" | no |
 | http_domain_basic_auth_id | The GAAP HTTP domain basic auth ID use to launch resources. | string | "" | no |
-| http_domain_basic_auth_name | The GAAP HTTP domain basic auth name when `http_domain_basic_auth_id` is not specified. | string | "tfmodule-hd-basic-certificate" | no |
+| http_domain_basic_auth_name | The GAAP HTTP domain basic auth name when `http_domain_basic_auth_id` is not specified. | string | "tfmodule-hd-basic-cert" | no |
 | http_domain_basic_auth_content | The GAAP HTTP domain basic auth content when `http_domain_basic_auth_id` is not specified. | string | "" | no |
-| http_domain_gaap_certificate_id | The GAAP HTTP domain proxy certificate ID use to launch resources. | string | "" | no |
-| http_domain_gaap_certificate_name | The GAAP HTTP domain proxy certificate name when `http_domain_gaap_certificate_id` is not specified. | string | "tfmodule-hd-proxy-certificate" | no |
+| http_domain_gaap_certificate_id | The GAAP HTTP domain proxy certificate name when `http_domain_gaap_certificate_id` is not specified. | string | "" | no |
+| http_domain_gaap_certificate_name | Specify the GAAP error page remove headers. | string | "tfmodule-hd-proxy-cert" | no |
 | http_domain_gaap_certificate_content | The GAAP HTTP domain proxy certificate content when `http_domain_gaap_certificate_id` is not specified. | string | "" | no |
 | http_domain_gaap_certificate_key | The GAAP HTTP domain proxy certificate key when `http_domain_gaap_certificate_id` is not specified. | string | "" | no |
-| http_domain_realserver_certificate_ids | The list of GAAP HTTP domain realserver certificate ID use to launch resources. | list(string) | null | no |
-| http_domain_realserver_certificate_name | The GAAP HTTP domain realserver certificate name when `http_domain_realserver_certificate_ids` is not specified. | string | "tf-module-hd-rs-certificate" | no |
-| http_domain_realserver_certificate_contents | The list of GAAP HTTP domain client certificate content when `http_domain_realserver_certificate_ids` is not specified. | list(string) | [] | no |
-| http_domain_realserver_certificate_domain | The GAAP HTTP domain realserver certificate domain when `http_domain_realserver_certificate_ids` is not specified. | string | "" | no |
+| http_domain_realserver_certificate_id | The GAAP HTTP domain realserver certificate ID use to launch resources. | string | "" | no |
+| http_domain_realserver_certificate_name | The GAAP HTTP domain realserver certificate name when `http_domain_realserver_certificate_id` is not specified. | string | "tfmodule-hd-proxy-cert" | no |
+| http_domain_realserver_certificate_content | The GAAP HTTP domain realserver certificate content when `http_domain_realserver_certificate_id` is not specified. | string | "" | no |
+| http_domain_realserver_certificate_domain | The GAAP HTTP domain realserver certificate domain when `http_domain_realserver_certificate_id` is not specified. | string | "" | no |
 | domain_error_page_body | Specify the GAAP error page body. | string | "" | no |
 | domain_error_page_error_codes | Specify the GAAP error page original error codes. | list(integer) | [] | no |
 | domain_error_page_clear_headers | Specify the GAAP error page remove headers. | list(string) | [] | no |
@@ -118,7 +127,7 @@ This module can create GAAP layer7 listener.
 | listener_id | The list of GAAP layer7 listener ID. |
 | http_domain_id | The list of GAAP HTTP domain ID. |
 | http_rule_id | The list of GAAP HTTP rule ID. |
-| listener_server_certificate_id | The list of GAAP layer7 listener certificate ID. |
+| listener_certificate_id | The list of GAAP layer7 listener certificate ID. |
 | listener_client_certificate_id | The list of GAAP layer7 listener client certificate ID. |
 | http_domain_certificate_id | The list of GAAP HTTP domain certificate ID. |
 | http_domain_client_certificate_id | The list of GAAP HTTP domain client certificate ID. |
