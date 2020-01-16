@@ -1,37 +1,75 @@
+variable "project_id" {
+  description = "Specify the project id."
+  default     = 0
+}
+
+variable "tags" {
+  description = "Specify the tags."
+  type        = map(string)
+  default     = {}
+}
+
 variable "proxy_id" {
   description = "Specify the GAAP proxy ID to launch resources."
   default     = ""
 }
 
-variable "layer7_listener_id" {
+variable "proxy_name" {
+  description = "Specify the GAAP proxy name to launch a GAAP proxy when `proxy_id` is not specified."
+  default     = "tf-module-proxy"
+}
+
+variable "access_region" {
+  description = "Specify the GAAP proxy access region to launch a GAAP proxy when `proxy_id` is not specified."
+  default     = ""
+}
+
+variable "realserver_region" {
+  description = "Specify the GAAP proxy realserver region to launch a GAAP proxy when `proxy_id` is not specified."
+  default     = ""
+}
+
+variable "bandwidth" {
+  description = "Specify the GAAP proxy bandwidth to launch a GAAP proxy when `proxy_id` is not specified."
+  type        = number
+  default     = null
+}
+
+variable "concurrent" {
+  description = "Specify the GAAP proxy concurrent to launch a GAAP proxy when `proxy_id` is not specified."
+  type        = number
+  default     = null
+}
+
+variable "listener_id" {
   description = "Specify the GAAP layer7 listener ID to launch resources."
   default     = ""
 }
 
-variable "layer7_listener_name" {
-  description = "The GAAP layer7 listener name used to launch a new layer7 listener when `layer7_listener_id` is not specified."
-  default     = ""
+variable "name" {
+  description = "The GAAP layer7 listener name used to launch a new layer7 listener when `listener_id` is not specified."
+  default     = "tf-module-layer7-listener"
 }
 
-variable "layer7_listener_port" {
-  description = "The GAAP layer7 listener port used to launch a new layer7 listener when `layer7_listener_id` is not specified."
+variable "port" {
+  description = "The GAAP layer7 listener port used to launch a new layer7 listener when `listener_id` is not specified."
   type        = number
   default     = null
 }
 
-variable "layer7_listener_protocol" {
-  description = "The GAAP layer7 listener protocol used to launch a new layer7 listener when `layer7_listener_id` is not specified, available values: `HTTP` and `HTTPS`."
+variable "protocol" {
+  description = "The GAAP layer7 listener protocol used to launch a new layer7 listener when `listener_id` is not specified, available values: `HTTP` and `HTTPS`."
   default     = ""
 }
 
-variable "layer7_listener_auth_type" {
-  description = "The GAAP layer7 listener auth type used to launch a new layer7 listener when `layer7_listener_id` is not specified, available values: `0` and `1`."
+variable "auth_type" {
+  description = "The GAAP layer7 listener auth type used to launch a new layer7 listener when `listener_id` is not specified, available values: `0` and `1`."
   type        = number
   default     = null
 }
 
-variable "layer7_listener_forward_protocol" {
-  description = "The GAAP layer7 listener forward protocol used to launch a new layer7 listener when `layer7_listener_id` is not specified, available values: `HTTP` and `HTTPS`."
+variable "forward_protocol" {
+  description = "The GAAP layer7 listener forward protocol used to launch a new layer7 listener when `listener_id` is not specified, available values: `HTTP` and `HTTPS`."
   type        = string
   default     = null
 }
@@ -48,17 +86,17 @@ variable "http_domain" {
   default     = ""
 }
 
-variable "http_domain_basic_auth" {
+variable "basic_auth" {
   description = "Specify if enable the GAAP HTTP domain basic auth or not when `http_domain_id` is not specified."
   default     = false
 }
 
-variable "http_domain_gaap_auth" {
+variable "gaap_auth" {
   description = "Specify if enable the GAAP HTTP domain proxy auth or not when `http_domain_id` is not specified."
   default     = false
 }
 
-variable "http_domain_realserver_auth" {
+variable "realserver_auth" {
   description = "Specify if enable the GAAP HTTP domain realserver auth or not when `http_domain_id` is not specified."
   default     = false
 }
@@ -70,132 +108,118 @@ variable "http_rule_id" {
 }
 
 variable "http_rule_domain" {
-  description = "Specify the GAAP HTTP rule domain when `http_rule_id` is not specified."
+  description = "Specify the GAAP HTTP rule domain when `http_rule_id` is not specified, if empty, will use `http_domain`."
   type        = string
   default     = ""
 }
 
-variable "http_rule_listener" {
-  description = "Specify the GAAP HTTP rule layer7 listener when `http_rule_id` is not specified."
-  type        = string
-  default     = ""
-}
-
-variable "http_rule_health_check" {
+variable "health_check" {
   description = "Specify if enable the GAAP HTTP rule health check or not when `http_rule_id` is not specified."
   default     = false
 }
 
-variable "http_rule_path" {
+variable "path" {
   description = "Specify the GAAP HTTP rule path when `http_rule_id` is not specified."
   type        = string
-  default     = null
+  default     = "/"
 }
 
-variable "http_rule_realserver_type" {
-  description = "Specify the GAAP HTTP rule realserver type when `http_rule_id` is not specified, avaliable values: `IP` and `DOMAIN`."
+variable "realserver_type" {
+  description = "Specify the GAAP HTTP rule realserver type when `http_rule_id` is not specified, available values: `IP` and `DOMAIN`."
   type        = string
   default     = null
 }
 
-variable "http_rule_connect_timeout" {
+variable "connect_timeout" {
   description = "Specify the GAAP HTTP rule connect timeout when `http_rule_id` is not specified."
   type        = number
+  default     = 2
 }
 
-variable "http_rule_forward_host" {
+variable "forward_host" {
   description = "Specify the GAAP HTTP rule forward host when `http_rule_id` is not specified."
   default     = "default"
 }
 
-variable "http_rule_health_check_method" {
-  description = "Specify the GAAP HTTP rule health check method when `http_rule_id` is not specified, avaliable values: `GET` and `POST`."
+variable "health_check_method" {
+  description = "Specify the GAAP HTTP rule health check method when `http_rule_id` is not specified, available values: `GET` and `POST`."
   type        = string
   default     = null
 }
 
-variable "http_rule_health_check_path" {
+variable "health_check_path" {
   description = "Specify the GAAP HTTP rule health check path when `http_rule_id` is not specified."
   type        = string
   default     = null
 }
 
-variable "http_rule_health_check_status_codes" {
+variable "health_check_status_codes" {
   description = "The list of GAAP HTTP rule health check status code when `http_rule_id` is not specified."
   type        = list(number)
   default     = null
 }
 
-variable "http_rule_health_check_interval" {
+variable "interval" {
   description = "Specify the GAAP HTTP rule health check interval when `http_rule_id` is not specified."
   type        = number
+  default     = 5
 }
 
-variable "http_rule_scheduler" {
-  description = "Specify the GAAP HTTP rule scheduler when `http_rule_id` is not specified, avaliable values: `rr`, `wrr` and `lc`."
+variable "scheduler" {
+  description = "Specify the GAAP HTTP rule scheduler when `http_rule_id` is not specified, available values: `rr`, `wrr` and `lc`."
   type        = string
   default     = "rr"
 }
 
-variable "http_rule_realserver_ids" {
-  description = "The list of the GAAP realserver ID when `http_rule_id` is not specified."
-  type        = list(string)
+variable "create_realserver" {
+  description = "Specify create new realservers with specified config in `realservers` or not."
+  default     = false
+}
+
+variable "realserver_name" {
+  description = "Specify the realserver name when `create_realserver` is `true`."
+  default     = "tf-module-realserver"
+}
+
+variable "realservers" {
+  description = "The list of GAAP layer4 listener binding realserver config, each map contains `id`, `ip`, `domain` and `port`. If not specify `weight`, will use default value `1`; If `create_realserver` is `true`, `id` will be ignored."
+  type        = list(map(string))
   default     = []
 }
 
-variable "http_rule_realserver_address" {
-  description = "The list of the GAAP realserver ip or domain when `http_rule_id` is not specified."
-  type        = list(string)
-  default     = []
-}
-
-variable "http_rule_realserver_ports" {
-  description = "The list of the GAAP realserver port when `http_rule_id` is not specified."
-  type        = list(number)
-  default     = []
-}
-
-variable "http_rule_realserver_weights" {
-  description = "The list of the GAAP realserver port when `http_rule_id` is not specified."
-  type        = list(number)
-  default     = []
-}
-
-variable "layer7_certificate_id" {
+variable "listener_certificate_id" {
   description = "The GAAP layer7 listener certificate ID use to launch resources."
   default     = ""
 }
 
-variable "layer7_certificate_name" {
-  description = "The GAAP layer7 certificate name when `layer7_certificate_id` is not specified."
-  default     = "tfmodule-l7-certificate"
+variable "listener_certificate_name" {
+  description = "The GAAP layer7 certificate name when `listener_certificate_id` is not specified."
+  default     = "tfmodule-listener-cert"
 }
 
-variable "layer7_certificate_content" {
-  description = "The GAAP layer7 certificate content when `layer7_certificate_id` is not specified."
+variable "listener_certificate_content" {
+  description = "The GAAP layer7 certificate content when `listener_certificate_id` is not specified."
   default     = ""
 }
 
-variable "layer7_certificate_key" {
-  description = "The GAAP layer7 certificate key when `layer7_certificate_id` is not specified."
+variable "listener_certificate_key" {
+  description = "The GAAP layer7 certificate key when `listener_certificate_id` is not specified."
   default     = ""
 }
 
-variable "layer7_client_certificate_ids" {
-  description = "The list of GAAP client certificate ID use to launch resources."
-  type        = list(string)
-  default     = null
+variable "listener_client_certificate_id" {
+  description = "The GAAP layer7 listener client certificate ID use to launch resources."
+  default     = ""
 }
 
-variable "layer7_client_certificate_name" {
-  description = "The GAAP client certificate name when `layer7_client_certificate_ids` is not specified."
-  default     = "tfmodule-l7-clientcertificate"
+variable "listener_client_certificate_name" {
+  description = "The GAAP layer7 listener client certificate name when `listener_client_certificate_id` is not specified."
+  default     = "tfmodule-listener-client-cert"
 }
 
-variable "layer7_client_certificate_contents" {
-  description = "The list of GAAP client certificate content when `layer7_client_certificate_ids` is not specified."
-  type        = list(string)
-  default     = []
+variable "listener_client_certificate_content" {
+  description = "The GAAP layer7 listener client certificate content when `listener_client_certificate_id` is not specified."
+  default     = ""
 }
 
 variable "http_domain_certificate_id" {
@@ -205,7 +229,7 @@ variable "http_domain_certificate_id" {
 
 variable "http_domain_certificate_name" {
   description = "The GAAP HTTP domain certificate name when `http_domain_certificate_id` is not specified."
-  default     = "tfmodule-hd-certificate"
+  default     = "tfmodule-hd-cert"
 }
 
 variable "http_domain_certificate_content" {
@@ -218,77 +242,73 @@ variable "http_domain_certificate_key" {
   default     = ""
 }
 
-variable "http_domain_client_certificate_ids" {
-  description = "The list of GAAP HTTP domain client certificate ID use to launch resources."
-  type        = list(string)
-  default     = null
+variable "http_domain_client_certificate_id" {
+  description = "The GAAP HTTP domain certificate ID use to launch resources."
+  default     = ""
 }
 
 variable "http_domain_client_certificate_name" {
-  description = "The GAAP HTTP domain certificate name when `http_domain_client_certificate_ids` is not specified."
-  default     = "tfmodule-hd-clientcertificate"
+  description = "The GAAP HTTP domain client certificate name when `http_domain_client_certificate_id` is not specified."
+  default     = "tfmodule-hd-client-cert"
 }
 
-variable "http_domain_client_certificate_contents" {
-  description = "The list of GAAP HTTP domain client certificate content when `http_domain_client_certificate_ids` is not specified."
-  type        = list(string)
-  default     = []
+variable "http_domain_client_certificate_content" {
+  description = "The GAAP HTTP domain client certificate content when `http_domain_client_certificate_id` is not specified."
+  default     = ""
 }
 
-variable "http_domain_basic_auth_id" {
+variable "basic_auth_id" {
   description = "The GAAP HTTP domain basic auth ID use to launch resources."
   default     = ""
 }
 
-variable "http_domain_basic_auth_name" {
+variable "basic_auth_name" {
   description = "The GAAP HTTP domain basic auth name when `http_domain_basic_auth_id` is not specified."
-  default     = "tfmodule-hd-basic-certificate"
+  default     = "tfmodule-hd-basic-cert"
 }
 
-variable "http_domain_basic_auth_content" {
+variable "basic_auth_content" {
   description = "The GAAP HTTP domain basic auth content when `http_domain_basic_auth_id` is not specified."
   default     = ""
 }
 
-variable "http_domain_gaap_certificate_id" {
+variable "gaap_certificate_id" {
   description = "The GAAP HTTP domain proxy certificate ID use to launch resources."
   default     = ""
 }
 
-variable "http_domain_gaap_certificate_name" {
+variable "gaap_certificate_name" {
   description = "The GAAP HTTP domain proxy certificate name when `http_domain_gaap_certificate_id` is not specified."
-  default     = "tfmodule-hd-proxy-certificate"
+  default     = "tfmodule-hd-proxy-cert"
 }
 
-variable "http_domain_gaap_certificate_content" {
+variable "gaap_certificate_content" {
   description = "The GAAP HTTP domain proxy certificate content when `http_domain_gaap_certificate_id` is not specified."
   default     = ""
 }
 
-variable "http_domain_gaap_certificate_key" {
+variable "gaap_certificate_key" {
   description = "The GAAP HTTP domain proxy certificate key when `http_domain_gaap_certificate_id` is not specified."
   default     = ""
 }
 
-variable "http_domain_realserver_certificate_ids" {
-  description = "The list of GAAP HTTP domain realserver certificate ID use to launch resources."
-  type        = list(string)
-  default     = null
+variable "realserver_certificate_id" {
+  description = "The GAAP HTTP domain realserver certificate ID use to launch resources."
+  default     = ""
 }
 
-variable "http_domain_realserver_certificate_name" {
-  description = "The GAAP HTTP domain realserver certificate name when `http_domain_realserver_certificate_ids` is not specified."
-  default     = "tfmodule-hd-rs-certificate"
+variable "realserver_certificate_name" {
+  description = "The GAAP HTTP domain realserver certificate name when `http_domain_realserver_certificate_id` is not specified."
+  default     = "tfmodule-hd-proxy-cert"
 }
 
-variable "http_domain_realserver_certificate_contents" {
-  description = "The list of GAAP HTTP domain client certificate content when `http_domain_realserver_certificate_ids` is not specified."
-  type        = list(string)
-  default     = []
+variable "realserver_certificate_content" {
+  description = "The GAAP HTTP domain realserver certificate content when `http_domain_realserver_certificate_id` is not specified."
+  default     = ""
 }
 
-variable "http_domain_realserver_certificate_domain" {
-  description = "The GAAP HTTP domain realserver certificate domain when `http_domain_realserver_certificate_ids` is not specified."
+variable "realserver_certificate_domain" {
+  description = "The GAAP HTTP domain realserver certificate domain when `http_domain_realserver_certificate_id` is not specified."
   default     = ""
 }
 
