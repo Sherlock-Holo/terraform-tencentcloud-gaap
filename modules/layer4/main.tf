@@ -1,22 +1,43 @@
-resource "tencentcloud_gaap_layer4_listener" "default-layer4-listener" {
-  count           = var.layer4_listener_id == "" && var.layer4_listener_protocol != "" ? 1 : 0
-  proxy_id        = var.proxy_id
-  name            = var.layer4_listener_name
-  protocol        = var.layer4_listener_protocol
-  port            = var.layer4_listener_port
-  realserver_type = var.layer4_listener_realserver_type
-  connect_timeout = var.layer4_listener_connect_timeout
-  health_check    = var.layer4_listener_health_check
-  interval        = var.layer4_listener_health_check_interval
-  scheduler       = var.layer4_listener_scheduler
+resource "tencentcloud_gaap_proxy" "default" {
+  count = var.access_region != "" ? 1 : 0
+
+  access_region = var.access_region
+  bandwidth = var.bandwidth
+  concurrent = var.concurrent
+  name = var.proxy_name
+  realserver_region = var.realserver_region
+  project_id = var.project_id
+  tags = var.tags
+}
+
+resource "tencentcloud_gaap_layer4_listener" "default" {
+  proxy_id = var.proxy_id != "" ? var.proxy_id : tencentcloud_gaap_proxy.default[0].id
+  name = var.name
+  protocol = var.protocol
+  port = var.port
+  realserver_type = var.realserver_type
+  connect_timeout = var.connect_timeout
+  health_check = var.health_check
+  interval = var.health_check_interval
+  scheduler = var.scheduler
 
   dynamic "realserver_bind_set" {
-    for_each = var.layer4_listener_realserver_ids
+    for_each = var.realservers
     content {
-      id     = realserver_bind_set.value
-      ip     = var.layer4_listener_realserver_address[index(var.layer4_listener_realserver_ids, realserver_bind_set.value)]
-      port   = var.layer4_listener_realserver_ports[index(var.layer4_listener_realserver_ids, realserver_bind_set.value)]
-      weight = var.layer4_listener_realserver_weights[index(var.layer4_listener_realserver_ids, realserver_bind_set.value)]
+      id = var.create_realserver ? tencentcloud_gaap_realserver.default[index(var.realservers, realserver_bind_set.value)].id : lookup(realserver_bind_set.value, "id", "")
+      ip = var.realserver_type == "IP" ? lookup(realserver_bind_set.value, "ip", "") : lookup(realserver_bind_set.value, "domain", "")
+      port = lookup(realserver_bind_set.value, "port", 0)
+      weight = lookup(realserver_bind_set.value, "weight", 1)
     }
   }
+}
+
+resource "tencentcloud_gaap_realserver" "default" {
+  count = var.create_realserver && length(var.realservers) > 0 ? length(var.realservers) : 0
+
+  project_id = var.project_id
+  name = var.realserver_name
+  ip = var.realserver_type == "IP" ? lookup(var.realservers[count.index], "ip", null) : null
+  domain = var.realserver_type == "DOMAIN" ? lookup(var.realservers[count.index], "domain", null) : null
+  tags = var.tags
 }

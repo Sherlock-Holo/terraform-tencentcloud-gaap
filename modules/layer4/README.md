@@ -12,40 +12,131 @@ The following resources are included.
 
 ## Usage
 
+### with exist GAAP proxy
+
+```hcl
+resource "tencentcloud_gaap_proxy" "default" {
+  name              = "default proxy"
+  bandwidth         = 10
+  concurrent        = 2
+  access_region     = "SouthChina"
+  realserver_region = "NorthChina"
+}
+
+module "realserver" {
+  source = "terraform-tencentcloud-modules/gaap/tencentcloud//modules/layer4"
+
+  proxy_id = tencentcloud_gaap_proxy.default.id
+
+  name            = "simple-TCP-listener"
+  protocol        = "TCP"
+  port            = 80
+  realserver_type = "IP"
+
+  scheduler = "wrr"
+
+  create_realserver = true
+
+  realservers = [
+    {
+      ip     = "1.1.1.1"
+      port   = 80
+      weight = 10
+    },
+    {
+      ip     = "8.8.8.8"
+      port   = 80
+      weight = 15
+    }
+  ]
+}
+```
+
+### without exist GAAP proxy
+
 ```hcl
 module "realserver" {
   source = "terraform-tencentcloud-modules/gaap/tencentcloud//modules/layer4"
 
-  proxy_name              = "simple-proxy"
-  proxy_access_region     = "EastChina"
-  proxy_realserver_region = "SouthChina"
-  proxy_concurrent        = 2
-  proxy_bandwidth         = 10
-
-  layer4_listener_name            = "simple-TCP-listener"
-  layer4_listener_protocol        = "TCP"
-  layer4_listener_port            = 80
-  layer4_listener_realserver_type = "IP"
-
-  layer4_listener_scheduler = "wrr"
-
-  realserver_tags = {
-    "test" : "test"
+  tags = {
+    "test" = "test"
   }
 
-  realserver_ips = [
-    "1.1.1.1",
-    "8.8.8.8"
-  ]
-  realserver_bind_port = [
-    80,
-    80
-  ]
-  realserver_bind_weight = [
-    1,
-    10
-  ]
+  access_region     = "NorthChina"
+  realserver_region = "EastChina"
+  bandwidth         = 10
+  concurrent        = 2
 
+  name            = "simple-TCP-listener"
+  protocol        = "TCP"
+  port            = 80
+  realserver_type = "IP"
+
+  scheduler = "wrr"
+
+  create_realserver = true
+
+  realservers = [
+    {
+      ip     = "1.1.1.1"
+      port   = 80
+      weight = 10
+    },
+    {
+      ip     = "8.8.8.8"
+      port   = 80
+      weight = 15
+    }
+  ]
+}
+```
+
+### with exist GAAP realservers
+
+```hcl
+module "realserver" {
+  source = "terraform-tencentcloud-modules/gaap/tencentcloud//modules/layer4"
+
+  tags = {
+    "test" = "test"
+  }
+
+  access_region     = "NorthChina"
+  realserver_region = "EastChina"
+  bandwidth         = 10
+  concurrent        = 2
+
+  name            = "simple-TCP-listener"
+  protocol        = "TCP"
+  port            = 80
+  realserver_type = "IP"
+
+  scheduler = "wrr"
+
+  realservers = [
+    {
+      id     = tencentcloud_gaap_realserver.rs1.id
+      ip     = tencentcloud_gaap_realserver.rs1.ip
+      port   = 80
+      weight = 10
+    },
+    {
+      id     = tencentcloud_gaap_realserver.rs2.id
+      ip     = tencentcloud_gaap_realserver.rs2.ip
+      port   = 80
+      weight = 15
+    }
+  ]
+}
+
+resource "tencentcloud_gaap_realserver" "rs1" {
+  ip   = "1.1.1.1"
+  name = "tf-module-realserver"
+}
+
+resource "tencentcloud_gaap_realserver" "rs2" {
+  ip   = "8.8.8.8"
+  name = "tf-module-realserver"
 }
 ```
 
@@ -57,23 +148,33 @@ This module can create GAAP layer4 listener.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| layer4_listener_id | Specify the GAAP layer4 listener ID to launch resources. | string | "" | no|
-| layer4_listener_protocol | The GAAP layer4 listener protocol used to launch a new layer4 listener when `layer4_listener_id` is not specified, available values: `TCP` and `UDP`. | string | "" | no |
-| layer4_listener_name | The GAAP layer4 listener name used to launch a new layer4 listener when `layer4_listener_id` is not specified. | string | "" | no |
-| layer4_listener_port | The GAAP layer4 listener port used to launch a new layer4 listener when `layer4_listener_id` is not specified. | integer | null | no |
-| layer4_listener_type | The GAAP layer4 listener type used to launch a new layer4 listener when `layer4_listener_id` is not specified, available values: `TCP` and `UDP`. | string | null | no |
-| layer4_listener_realserver_type | The GAAP layer4 listener realserver type used to launch a new layer4 listener when `layer4_listener_id` is not specified, available values: `IP` and `DOMAIN`. | string | null | no |
-| layer4_listener_connect_timeout | The GAAP layer4 listener connect timeout used to launch a new layer4 listener when `layer4_listener_id` is not specified. | integer | 2 | no |
-| layer4_listener_health_check | Enable the GAAP layer4 listener health check or not used to launch a new layer4 listener when `layer4_listener_id` is not specified. | bool | false | no |
-| layer4_listener_health_check_interval | The GAAP layer4 listener health check interval used to launch a new layer4 listener when `layer4_listener_id` is not specified. | integer | 5 | no |
-| layer4_listener_scheduler | The GAAP layer4 listener scheduler used to launch a new layer4 listener when `layer4_listener_id` is not specified, available values: `rr`, `wrr` and `lc`. | string | null | no |
-| layer4_listener_realservers | The list of the GAAP layer4 listener realserver config when `layer4_listener_id` is not specified, each config must contain key `id`, `ip`, `port` and `weight`. | list(map(string)) | [] | no |
+| project_id | Specify the project id. | integer | 0 | no |
+| tags | Specify the tags. | map(string) | {} | no |
+| proxy_id | Specify the GAAP proxy ID to launch resources. | string | "" | no |
+| proxy_name | Specify the GAAP proxy name to launch a GAAP proxy when `proxy_id` is not specified. | string | "tf-module-proxy" | no |
+| access_region | Specify the GAAP proxy access region to launch a GAAP proxy when `proxy_id` is not specified. | string | "" | no |
+| realserver_region | Specify the GAAP proxy realserver region to launch a GAAP proxy when `proxy_id` is not specified. | string | "" | no |
+| bandwidth | Specify the GAAP proxy bandwidth to launch a GAAP proxy when `proxy_id` is not specified. | integer | null | no |
+| concurrent | Specify the GAAP proxy concurrent to launch a GAAP proxy when `proxy_id` is not specified. | integer | null | no |
+| protocol | The GAAP layer4 listener protocol used to launch a new layer4 listener, available values: `TCP` and `UDP`. | string |  | yes |
+| name | The GAAP layer4 listener name used to launch a new layer4 listener. | string | tf-module-layer4-listener | no |
+| port | The GAAP layer4 listener port used to launch a new layer4 listener. | integer |  | yes |
+| realserver_type | The GAAP layer4 listener realserver type used to launch a new layer4 listener, available values: `IP` and `DOMAIN`. | string |  | yes |
+| connect_timeout | The GAAP layer4 listener connect timeout used to launch a new layer4 listener. | integer | null | no |
+| health_check | Enable the GAAP layer4 listener health check or not used to launch a new layer4 listener. | bool | false | no |
+| health_check_interval | The GAAP layer4 listener health check interval used to launch a new layer4 listener. | integer | null | no |
+| scheduler | The GAAP layer4 listener scheduler used to launch a new layer4 listener, available values: `rr`, `wrr` and `lc`. | string | "rr" | no |
+| create_realserver | Specify create new realservers with specified config in `realservers` or not. | boll | false | no |
+| realserver_name | Specify the realserver name when `create_realserver` is `true`. | string | "tf-module-realserver" | no |
+| realservers | The list of GAAP layer4 listener binding realserver config, each map contains `id`, `ip`, `domain` and `port`. If not specify `weight`, will use default value `1`; If `create_realserver` is `true`, `id` will be ignored. | list(map(string)) | [] | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| listener_id | The list of GAAP layer4 listener ID. |
+| proxy_id | The GAAP proxy ID. |
+| listener_id | The GAAP layer4 listener ID. |
+| realserver_ids | The list of GAAP realserver ID. |
 
 ## Authors
 
