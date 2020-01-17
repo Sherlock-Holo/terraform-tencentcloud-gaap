@@ -23,7 +23,7 @@ resource "tencentcloud_gaap_proxy" "default" {
   realserver_region = "NorthChina"
 }
 
-module "realserver" {
+module "simple-layer4" {
   source = "terraform-tencentcloud-modules/gaap/tencentcloud//modules/layer4"
 
   proxy_id = tencentcloud_gaap_proxy.default.id
@@ -55,7 +55,7 @@ module "realserver" {
 ### without exist GAAP proxy
 
 ```hcl
-module "realserver" {
+module "simple-layer4" {
   source = "terraform-tencentcloud-modules/gaap/tencentcloud//modules/layer4"
 
   tags = {
@@ -94,7 +94,7 @@ module "realserver" {
 ### with exist GAAP realservers
 
 ```hcl
-module "realserver" {
+module "simple-layer4" {
   source = "terraform-tencentcloud-modules/gaap/tencentcloud//modules/layer4"
 
   tags = {

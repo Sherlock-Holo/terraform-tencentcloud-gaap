@@ -16,34 +16,32 @@ The following resources are included.
 ## Usage
 
 ```hcl
-module "realserver" {
-  source = "terraform-tencentcloud-modules/gaap/tencentcloud//modules/layer7"
+module "simple-http" {
+  source = "tencentcloud-modules/gaap/tencentcloud//modules/layer7"
 
-  proxy_name              = "simple-proxy"
-  proxy_access_region     = "EastChina"
-  proxy_realserver_region = "SouthChina"
-  proxy_concurrent        = 2
-  proxy_bandwidth         = 10
+  access_region     = "NorthChina"
+  realserver_region = "EastChina"
+  bandwidth         = 10
+  concurrent        = 2
 
-  layer7_listener_name             = "simple-HTTPS-listener"
-  layer7_listener_protocol         = "HTTPS"
-  layer7_listener_forward_protocol = "HTTPS"
-  layer7_listener_auth_type        = 0
-  layer7_listener_port             = 443
+  protocol        = "HTTP"
+  port            = 80
+  realserver_type = "IP"
 
-  layer7_certificate_content = file("public1.pem")
-  layer7_certificate_key     = file("pkey.pem")
+  http_domain = "www.qq.com"
 
-  http_domain                             = "www.qq.com"
-  http_domain_client_certificate_contents = [file("public1.pem"), file("public2.pem")]
+  create_realserver = true
 
-  http_rule_domain          = "www.qq.com"
-  http_rule_path            = "/"
-  http_rule_realserver_type = "IP"
-
-  realserver_ips         = ["1.1.1.1", "8.8.8.8"]
-  realserver_bind_port   = [80, 80]
-  realserver_bind_weight = [1, 1]
+  realservers = [
+    {
+      ip   = "1.1.1.1"
+      port = 80
+    },
+    {
+      ip   = "8.8.8.8"
+      port = 80
+    }
+  ]
 }
 ```
 
@@ -75,7 +73,7 @@ This module can create GAAP layer7 listener.
 | gaap_auth | Specify if enable the GAAP HTTP domain proxy auth or not when `http_domain_id` is not specified. | bool | false | no |
 | realserver_auth | Specify if enable the GAAP HTTP domain realserver auth or not when `http_domain_id` is not specified. | bool | false | no |
 | http_rule_id | The GAAP HTTP rule ID to launch resources. | string | "" | no |
-| http_rule_domain | Specify the GAAP HTTP rule domain when `http_rule_id` is not specified. | string | "" | no |
+| http_rule_domain | Specify the GAAP HTTP rule domain when `http_rule_id` is not specified, if empty, will use `http_domain`. | string | "" | no |
 | health_check | Specify if enable the GAAP HTTP rule health check or not when `http_rule_id` is not specified. | bool | false | no |
 | path | Specify the GAAP HTTP rule path when `http_rule_id` is not specified. | string | "" | no |
 | realserver_type | Specify the GAAP HTTP rule realserver type when `http_rule_id` is not specified, available values: `IP` and `DOMAIN`. | string | null | no |
