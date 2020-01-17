@@ -1,4 +1,4 @@
-module "realserver" {
+module "simple-layer4" {
   source = "../../modules/layer4"
 
   tags = {

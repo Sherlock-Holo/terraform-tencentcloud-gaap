@@ -90,7 +90,7 @@ resource "tencentcloud_gaap_http_domain" "default" {
 }
 
 resource "tencentcloud_gaap_http_rule" "default" {
-  count = var.http_rule_id == "" && (var.http_domain != "" || var.http_rule_domain != "") && var.path != "" ? 1 : 0
+  count = var.http_rule_id == "" && (var.http_domain != "" || var.http_rule_domain != "") ? 1 : 0
 
   domain                    = length(tencentcloud_gaap_http_domain.default) > 0 ? tencentcloud_gaap_http_domain.default[0].domain : coalesce(var.http_rule_domain, var.http_domain)
   health_check              = var.health_check
